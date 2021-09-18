@@ -1,0 +1,24 @@
+{
+  "name": "lesson1",
+  "version": "1.0.0",
+  "description": "tomatoClock 项目的更新服务器",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@koa/cors": "^3.1.0",
+    "compare-versions": "^3.6.0",
+    "koa": "^2.13.1",
+    "koa-body": "^4.2.0",
+    "koa-multer": "^1.0.2",
+    "koa-router": "^10.0.0",
+    "koa-static-server": "^1.5.2"
+  },
+  "devDependencies": {
+    "open": "^8.2.1"
+  }
+}

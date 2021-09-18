@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <!-- <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'"
+    />
+    <meta
+      http-equiv="X-Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'"
+    /> -->
+    <title>Hello World!</title>
+  </head>
+  <body>
+    <div class="clock-container">
+      <div class="clock-time">
+        <div class="clock-number">10</div>
+      </div>
+      <div class="clock-button">
+        <button onclick="startWork()">开始</button>
+        <button onclick="restart()">复位</button>
+        <button onclick="pause()">暂停</button>
+      </div>
+      <div>
+        <button onclick="getTime()">获取数据</button>
+      </div>
+    </div>
+
+    <!-- You can also require other files to run in this process -->
+    <script src="./renderer.js"></script>
+  </body>
+</html>
