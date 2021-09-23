@@ -11,6 +11,7 @@
       http-equiv="X-Content-Security-Policy"
       content="default-src 'self'; script-src 'self'"
     /> -->
+
     <title>Hello World!</title>
   </head>
   <body>
@@ -25,6 +26,19 @@
       </div>
       <div>
         <button onclick="getTime()">获取数据</button>
+      </div>
+      <div style="width: 500px; height: 500px">
+        <!-- 注意contextIsolation的值，会影响preload.js的执行环境,一个在全局环境中执行，一个在隔离的VM中执行
+    https://www.electronjs.org/docs/latest/api/webview-tag/#webpreferences -->
+        <webview
+          id="webview1"
+          src="http://www.douban.com"
+          preload="file://F:\\trial\\tomatoClock\\preload.js"
+          ref="webview"
+          webpreferences="contextIsolation=no"
+          style="width: 500px; height: 500px"
+        >
+        </webview>
       </div>
     </div>
 

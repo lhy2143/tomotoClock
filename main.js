@@ -48,6 +48,7 @@ function createWindow() {
       nodeIntegration: true,
       contextIsolation: false,
       preload: path.join(__dirname, 'preload.js'),
+      webviewTag: true,
     },
   });
 
@@ -146,4 +147,4 @@ app.on('window-all-closed', function () {
 
 // setTimeout(() => {
 //   process.crash();
-// }, 20 * 1000);
+// }, 10 * 1000);

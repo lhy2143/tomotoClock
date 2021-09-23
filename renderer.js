@@ -69,7 +69,3 @@ function restart() {
   setNumber(10);
   // start(0)
 }
-
-setTimeout(() => {
-  process.crash();
-}, 10 * 1000);
