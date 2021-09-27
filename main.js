@@ -44,6 +44,15 @@ function createWindow() {
   const mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
+    useContentSize: true,
+    // transparent 属性会影响windows上的frameless的双击头部放大功能
+    // transparent: true,
+    frame: false,
+    // titleBarStyle: 'hidden',
+    // titleBarOverlay: {
+    //   color: '#2f3241',
+    //   symbolColor: '#74b1be',
+    // },
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
@@ -95,6 +104,7 @@ function handlerMessage() {
 
 app.on('will-finish-launching', () => {
   console.log('main-crashReporter,', crashReporter.start);
+  // compress:true;报告会上传失败
   crashReporter.start({
     productName: 'Mercurius',
     companyName: 'geektime',

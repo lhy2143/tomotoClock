@@ -23,6 +23,7 @@ windows 客户端更新
   渲染进程崩溃后提示用户重新加载，webContents.crashed()
   多窗的情况下，写崩溃监控的代码显得很冗余，通过preload统一初始化崩溃监控
   主进程、渲染进程通过 process.crash() 可以模拟崩溃
+  上传报告时，配置`compress:false`才能成功
 
   崩溃治理的难点
   收集到的日志是 Native错误栈，没有上下文信息
@@ -33,5 +34,7 @@ windows 客户端更新
 BrowserView显示loading
 i18nnext 国际化
 node-auto-launch 开机自启动  (https://www.npmjs.com/package/auto-launch)
+
+frameless 窗口的窗口title操作问题,双击方大,拖动,上下左右改变窗口大小。
 
 
