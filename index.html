@@ -14,9 +14,10 @@
 
     <title>Hello World!</title>
   </head>
-  <body>
+  <body style="background: #fff">
     <div class="clock-container">
-      <div class="clock-time">
+      <!-- margin:0;上区域无法拖动放大;margin:5px;上区域可以拖动放大 -->
+      <div class="clock-time" style="-webkit-app-region: drag; margin: 0">
         <div class="clock-number">10</div>
       </div>
       <div class="clock-button">
