@@ -51,6 +51,7 @@
     "electron-squirrel-startup": "^1.0.0",
     "electron-store": "^8.0.0",
     "fs-extra": "^10.0.0",
+    "koa-jwt": "^4.0.3",
     "minidump": "0.15.0",
     "nedb": "^1.8.0",
     "winston": "^3.3.3",
