@@ -7,6 +7,12 @@ windows 客户端更新
    npm i electron-squirrel-startup -S
    在主进程开始加上 if (require('electron-squirrel-startup')) return
 
+打包准备：
+`证书`:mac向苹果购买，windows向赛门铁克或wosign等机构购买。
+windows 参考文章：https://www.cnblogs.com/mmykdbc/p/11468908.html
+
+
+
 崩溃监控
   dump 格式的日志,解析该格式文件。electron 源码的symbols文件和 minidump 库。
   https://github.com/electron/electron/releases/download/v13.0.1/electron-v13.0.1-win32-ia32-symbols.zip

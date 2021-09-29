@@ -19,7 +19,7 @@ process.on('uncaughtException', (e) => {
   console.log(`uncaughtException:${e}`);
 });
 
-app.use(cors());
+// app.use(cors());
 
 app.use(
   koaBody({
@@ -41,8 +41,10 @@ app.use(
 // const jwt2 = require('jsonwebtoken');
 // jwt2.sign({ name: 'lhy' }, 'shared-secret');
 // jwt2.sign('aaa', 'shared-secret')
-app.use(jwt({ secret: 'shared-secret' }));
-
+app.use(jwt({ secret: 'shared-secret' }).unless({ method: 'OPTIONS' }));
+router.get('/', (ctx, next) => {
+  ctx.body = 'hello world';
+});
 router.get('/getData', (ctx, next) => {
   ctx.body = { data: [] };
 });
@@ -59,6 +61,6 @@ app.use(serve({ rootDir: 'RELEASE/mac', rootPath: '/mac' }));
 app.use(serve({ rootDir: 'RELEASE/win32', rootPath: '/win32' }));
 app.use(router.routes()).use(router.allowedMethods());
 
-app.listen(8090, () => {
-  console.log('app is listening at 8090');
+app.listen(9999, () => {
+  console.log('app is listening at 9999');
 });
