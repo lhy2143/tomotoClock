@@ -10,6 +10,7 @@ const multer = require('koa-multer');
 // koa-bodyparser
 const koaBody = require('koa-body');
 const path = require('path');
+const fse = require('fs-extra');
 
 process.on('unhandledRejection', (e) => {
   console.log(`unhandledRejection:${e}`);
@@ -19,7 +20,7 @@ process.on('uncaughtException', (e) => {
   console.log(`uncaughtException:${e}`);
 });
 
-// app.use(cors());
+app.use(cors());
 
 app.use(
   koaBody({
@@ -30,8 +31,9 @@ app.use(
       // 上传目录
       uploadDir: path.join(__dirname, './crash'),
       keepExtensions: true,
-      fileBegin: (formName, file) => {
-        console.log(111, formName, file);
+      onFileBegin: (formName, file) => {
+        // 大文件上传的文件重命名，便于按顺序合成最终文件
+        file.path = 'F:\\trial\\tomatoClock\\server\\crash\\' + formName;
       },
     },
   })
@@ -41,7 +43,7 @@ app.use(
 // const jwt2 = require('jsonwebtoken');
 // jwt2.sign({ name: 'lhy' }, 'shared-secret');
 // jwt2.sign('aaa', 'shared-secret')
-app.use(jwt({ secret: 'shared-secret' }).unless({ method: 'OPTIONS' }));
+// app.use(jwt({ secret: 'shared-secret' }).unless({ method: 'OPTIONS' }));
 router.get('/', (ctx, next) => {
   ctx.body = 'hello world';
 });
@@ -55,6 +57,41 @@ router.post('/crash', uploadCrash.any(), (ctx, next) => {
   ctx.body = 'test';
   ctx.status = 200;
   // 存DB
+});
+const pipeStream = (path, writeStream) =>
+  new Promise((resolve) => {
+    const readStream = fse.createReadStream(path);
+    readStream.on('end', () => {
+      fse.unlinkSync(path);
+      resolve();
+    });
+    readStream.pipe(writeStream);
+  });
+const mergeFileChunk = async (filePath, fileHash, size = 10 * 1024 * 1024) => {
+  filePath = 'F:\\trial\\tomatoClock\\server\\crash\\客户端导航框架-0.0.32.dmg';
+  const chunkDir = path.resolve(__dirname, './crash');
+  const chunkPaths = await fse.readdir(chunkDir);
+  console.log(chunkPaths);
+  // 根据切片下标进行排序
+  // 否则直接读取目录的获得的顺序可能会错乱
+  chunkPaths.sort((a, b) => a.split('-')[1] - b.split('-')[1]);
+  await Promise.all(
+    chunkPaths.map((chunkPath, index) =>
+      pipeStream(
+        path.resolve(chunkDir, chunkPath),
+        // 指定位置创建可写流
+        fse.createWriteStream(filePath, {
+          start: index * size,
+          end: (index + 1) * size,
+        })
+      )
+    )
+  );
+};
+router.get('/merge', async (ctx, next) => {
+  await mergeFileChunk();
+  ctx.body = 'ok';
+  ctx.status = 200;
 });
 
 app.use(serve({ rootDir: 'RELEASE/mac', rootPath: '/mac' }));
